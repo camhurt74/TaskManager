@@ -9,30 +9,49 @@
 import Foundation
 
 class Tasks {
-    var toDoList : [TheTasks] = [TheTasks(taskTitle: "Do the laundry")]
+    var toDoList : [TheTasks] = []
     
     func addTasks() {
         print("Add your task that needs to be done.")
         var newTask = readLine()
         
+        
+         
+        print("In how many days would you like this to be completed?")
+        let userDueDate = Int(readLine()!)
+       
+        
         while newTask == nil || newTask == "" {
             print("Please input a task.")
         }
-        let task = TheTasks(taskTitle: newTask!)
+        while userDueDate == nil {
+            print("No date added")
+        }
+        let currentCalender = Calendar.current
+        var theDueDate = currentCalender.date(byAdding: .day, value: userDueDate!, to: Date())
+       
         
-        toDoList.append(task)
-        print("Your task was added.")
+        let myTask = TheTasks(taskTitle: newTask!)
+        
+        myTask.dueDate = theDueDate
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        print("The task was added and should be done by: \(dateFormatter.string(from: theDueDate!))")
+        
+        toDoList.append(myTask)
         listAllTasks()
+        
     }
+    
     func listAllTasks() {
         for task in toDoList {
             print(task.taskTitle)
-    }
-    
+        }
+        
     }
     
     func removeTask() {
-        for index in 1..<toDoList.count {
+        for index in 0..<toDoList.count {
             print("\(index). \(toDoList[index].taskTitle)")
         }
         print("Please enter the number of the task you want to remove.")
@@ -51,8 +70,8 @@ class Tasks {
     }
     
     func completedTasks() {
-        for index in 1..<toDoList.count {
-            if toDoList[index].completed == false {
+        for index in 0..<toDoList.count {
+            if toDoList[index].completed == false  {
                 print("\(index). \(toDoList[index].taskTitle)")
             }
         }
@@ -63,25 +82,23 @@ class Tasks {
             userInput = Int(readLine()!)
             
         }
-    
-   
-}
+        toDoList[userInput!].completed = true
+        toDoList[userInput!].dueDate = nil
+            print("Your task was completed.")
+        
+    }
     func listCompletedTasks()  {
         for task in toDoList {
-            if !task.completed {
-                print(task.taskTitle)
-                if let dueDate = task.dueDate {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "MM/dd/yyyy"
-                    print("\(task.taskTitle) is due on:\(dateFormatter.string(from: dueDate))")
-                }
+            if task.completed == true {
+                var taskTitle = task.taskTitle
+                print("\(taskTitle) is completed.")
+                
             }
         }
     }
     func listUnCompletedTasks()  {
         for task in toDoList {
-            if task.completed {
-                print(task.taskTitle)
+            if task.completed == false {
                 if let dueDate = task.dueDate {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -93,7 +110,7 @@ class Tasks {
     
     func incompletedTasks() {
         for index in 1..<toDoList.count {
-            if toDoList[index].completed == true {
+            if toDoList[index].completed == false {
                 print("\(index). \(toDoList[index].taskTitle)")
             }
         }
@@ -104,8 +121,8 @@ class Tasks {
             userInput = Int(readLine()!)
             
         }
-        
-        
     }
-
+    
+    
+    
 }

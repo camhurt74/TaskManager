@@ -12,9 +12,13 @@ class TheTasks {
     let taskTitle: String
     var completed: Bool = false
     var dueDate: Date?
+   
     
     init(taskTitle: String) {
         self.taskTitle = taskTitle
+      
+       
     }
+ 
     
 }

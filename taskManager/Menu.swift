@@ -88,10 +88,10 @@ please enter a number between 1-8
                 }
                 handleInput(input)
                 print("Would you like to go back to the menu?") //This gives users the option to return to the menu or quit.
-                readLine()
-                if readLine() == "Y" {
+                var userInput = readLine()
+                if userInput == "Y" {
                     printMenu()
-                }; if readLine() == "N"  {
+                }; if userInput == "N"  {
                     quit()
                 }
                 
