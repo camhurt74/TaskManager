@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//this class describes the tasks that have been created by the users 
 class TheTasks {
     let taskTitle: String
     var completed: Bool = false

@@ -15,7 +15,7 @@ class Menu {
        Task Manager
        1 Create new task
        2 list all tasks
-       3 List uncompleted tasks
+       3 List incompleted tasks
        4 List completed tasks
        5 Mark a task complete
        6 Mark task as incomplete
@@ -26,14 +26,14 @@ please enter a number between 1-8
 
 """)
     }
-    func handleInput(_ input: String) {  //This function was taken directly from the video game library it excecutes the same function.
+    func handleInput(_ input: String) {  // This function handles the user input and checks to see if it is 1-8 if not the code will break.
         switch input {
         case "1":
           taskManager.addTasks()
         case "2":
             taskManager.listAllTasks()
         case "3":
-          taskManager.listUnCompletedTasks()
+            taskManager.listInCompletedTasks()
         case "4":
           taskManager.listCompletedTasks()
             
@@ -52,7 +52,7 @@ please enter a number between 1-8
         }
     }
         
-        func validateInput(_ input: String) -> Bool { //This function sees if input can be interpretated.
+        func validateInput(_ input: String) -> Bool { //This function sees if input can be interpretated by taking an input paramater and setting an array that contains the numbers 1-8 to a constant and uses a gaurd statement to change the input from earlier from a string to an Int.
             let validMenuOptions = Array(1...8)
             guard let number = Int(input) else {
                 return false
@@ -63,12 +63,12 @@ please enter a number between 1-8
         
         
         var shouldQuit = false
-        func quit() { //This function allows us to quit the task manager.
+        func quit() {
             
             shouldQuit = true
             print("Thanks for Using the Application")
         }
-        func getInput() -> String {
+        func getInput() -> String { //This function gets the users input by taking readline, and if the input is blank it will ask the user to enter a valid input.
             var userInput = readLine()
             while userInput == nil || userInput == "" {
                 print("Please give a valid input")
@@ -76,7 +76,7 @@ please enter a number between 1-8
             }
             return userInput!
         }
-        func go() { //This function allows us to make the task manager run.
+        func go() { //this function states that if the user does not want to quit the menu will print out and then it gets the input again it also asks if the user would like to return to the menu or not.
             
             while !shouldQuit{
                 printMenu()
@@ -87,15 +87,17 @@ please enter a number between 1-8
                     input = getInput()
                 }
                 handleInput(input)
-                print("Would you like to go back to the menu?") //This gives users the option to return to the menu or quit.
+                if !shouldQuit {
+                print("Would you like to go back to the menu?")
                 var userInput = readLine()
                 if userInput == "Y" {
                     printMenu()
                 }; if userInput == "N"  {
-                    quit()
+                   quit()
+                }
                 }
                 
-                
+              
             }
         }
     
